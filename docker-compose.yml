@@ -1,0 +1,37 @@
+services:
+
+  mysql:
+    image: mysql:8.0
+    container_name: my-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "Sidshag@29"
+      MYSQL_DATABASE: gameflix_db
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-pSidshag@29"]
+      interval: 10s
+      retries: 10
+      timeout: 5s
+  app:
+    build: .
+    container_name: my-springboot-app
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/gameflix_db
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: "Sidshag@29"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - app-net
+volumes:
+  mysql_data:
+networks:
+  app-net:

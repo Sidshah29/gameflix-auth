@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head">
+    <title>Home</title>
+</head>
+<body>
+<div th:replace="fragments :: navbar"></div>
+
+<div class="container">
+    <h1 class="mt-4">Our example project-3</h1>
+    <p class="lead mt-3">
+        Our project will be a web application that will allow for CRUD applications for Courses and Students.
+    </p>
+    <p>
+        A student may enroll in many courses. And a course can have many students.
+    </p>
+
+    <hr>
+
+    <div class="mt-3">
+        <a class="btn btn-primary me-2" th:href="@{/courses}">Go to Courses</a>
+        <a class="btn btn-secondary" th:href="@{/students}">Go to Students</a>
+    </div>
+</div>
+</body>
+</html>

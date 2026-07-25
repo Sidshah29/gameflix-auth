@@ -1,0 +1,16 @@
+com\gameflix\auth\controller\StudentController.class
+com\gameflix\auth\service\UserService$DuplicateUsernameException.class
+com\gameflix\auth\controller\CourseController.class
+com\gameflix\auth\repository\CourseRepository.class
+com\gameflix\auth\dto\AuthRequest.class
+com\gameflix\auth\GameflixAuthApplication.class
+com\gameflix\auth\repository\StudentRepository.class
+com\gameflix\auth\controller\AuthController.class
+com\gameflix\auth\entity\Student.class
+com\gameflix\auth\service\UserService.class
+com\gameflix\auth\controller\HomeController.class
+com\gameflix\auth\dto\AuthResponse.class
+com\gameflix\auth\model\User.class
+com\gameflix\auth\repository\UserRepository.class
+com\gameflix\auth\config\SecurityConfig.class
+com\gameflix\auth\entity\Course.class
