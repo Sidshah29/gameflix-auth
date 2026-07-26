@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Copy Maven-built jar into the container
 # Adjust the jar name if your artifactId or version is different
-COPY target/gameflix-auth-0.0.1-SNAPSHOT.jar app.jar
+COPY target/springboot3-example-0.0.1-SNAPSHOT.jar app.jar
 
 # Expose default Spring Boot port
 EXPOSE 8080
