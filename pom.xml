@@ -6,10 +6,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>edu.psu.ist</groupId>
-    <artifactId>springboot3-example</artifactId>
+    <artifactId>gameflix</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>SpringBoot3Example</name>
-    <description>Spring Boot 3 Courses and Students CRUD example</description>
+    <name>GameFlix</name>
+    <description>GameFlix - a video game subscription management prototype</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -73,6 +73,33 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <!-- JWT (issuing and verifying signed tokens for the secured /api routes) -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>0.12.6</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>0.12.6</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>0.12.6</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- H2 in-memory DB, used only by the 'cloud' profile so the deployed
+             container needs no external database. Local dev still uses MySQL. -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 

@@ -1,12 +1,15 @@
 package com.gameflix.auth.dto;
 
 /**
- * Simple message envelope used by /register and /login.
- * A future iteration will replace the login response with a JWT payload (Task 4.b).
+ * Message envelope for /register and /login.
+ * On a successful login the token field carries the JWT the client then sends
+ * back as "Authorization: Bearer &lt;token&gt;" to reach the secured /api routes.
+ * The token stays null for register and for failed logins.
  */
 public class AuthResponse {
 
     private String message;
+    private String token;
 
     public AuthResponse() {
     }
@@ -15,11 +18,24 @@ public class AuthResponse {
         this.message = message;
     }
 
+    public AuthResponse(String message, String token) {
+        this.message = message;
+        this.token = token;
+    }
+
     public String getMessage() {
         return message;
     }
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

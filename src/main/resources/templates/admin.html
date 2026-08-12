@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head">
+    <title>Admin</title>
+</head>
+<body>
+<div th:replace="fragments :: navbar"></div>
+
+<div class="container">
+    <h1 class="mb-3">Admin &middot; Manage Games</h1>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Add a game</h5>
+            <form class="row g-2" method="post" th:action="@{/admin/games}">
+                <div class="col-md-3">
+                    <input class="form-control" name="title" placeholder="Title" required>
+                </div>
+                <div class="col-md-2">
+                    <input class="form-control" name="platform" placeholder="Platform" required>
+                </div>
+                <div class="col-md-2">
+                    <input class="form-control" name="genre" placeholder="Genre" required>
+                </div>
+                <div class="col-md-3">
+                    <input class="form-control" name="description" placeholder="Description">
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-danger w-100" type="submit">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <table class="table table-striped bg-white">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Platform</th>
+            <th>Genre</th>
+            <th>Available</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="game : ${games}">
+            <td th:text="${game.title}">Title</td>
+            <td th:text="${game.platform}">PC</td>
+            <td th:text="${game.genre}">Genre</td>
+            <td>
+                <span class="badge bg-success" th:if="${game.available}">Yes</span>
+                <span class="badge bg-secondary" th:unless="${game.available}">No</span>
+            </td>
+            <td>
+                <form class="d-inline" method="post"
+                      th:action="@{/admin/games/{id}/availability(id=${game.id})}">
+                    <input type="hidden" name="available" th:value="${!game.available}">
+                    <button class="btn btn-sm btn-outline-dark" type="submit"
+                            th:text="${game.available} ? 'Hide' : 'Publish'">Hide</button>
+                </form>
+                <form class="d-inline" method="post"
+                      th:action="@{/admin/games/{id}/delete(id=${game.id})}">
+                    <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-outline-dark" th:href="@{/}">Back to Dashboard</a>
+</div>
+</body>
+</html>

@@ -1,4 +1,4 @@
-name: Spring Boot CI
+name: GameFlix CI
 
 on:
   push:
@@ -19,9 +19,24 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
+          cache: 'maven'
 
-      - name: Build with Maven
-        run: mvn -B clean package -DskipTests
+      # Automated test step: unit + integration tests run against in-memory H2
+      # (the 'test' profile), so no MySQL service is needed in CI.
+      - name: Build and run tests
+        run: mvn -B clean package
+
+      # Security scan step: Trivy scans the source tree and dependencies for
+      # known CVEs. Reported for visibility; flip exit-code to '1' to make a
+      # HIGH/CRITICAL finding fail the pipeline.
+      - name: Security scan (Trivy)
+        uses: aquasecurity/trivy-action@0.24.0
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          severity: 'HIGH,CRITICAL'
+          ignore-unfixed: true
+          exit-code: '0'
 
       - name: Build Docker image
         run: docker build -t gameflix-backend .

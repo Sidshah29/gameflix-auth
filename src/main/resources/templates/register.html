@@ -1,26 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments :: head">
-    <title>Login</title>
+    <title>Register</title>
 </head>
 <body>
 <div th:replace="fragments :: navbar"></div>
 
 <div class="container" style="max-width: 520px;">
-    <h1 class="mb-3">Login</h1>
-    <p class="text-muted">Posts to the REST endpoint <code>POST /login</code> and shows the
-        JWT it returns. Copy that token as a Bearer header to reach <code>/api/me</code>.</p>
+    <h1 class="mb-3">Create an account</h1>
+    <p class="text-muted">Posts to <code>POST /register</code>. Passwords are stored as a
+        BCrypt hash, never in plaintext.</p>
 
     <div class="mb-3">
         <label class="form-label">Username</label>
-        <input class="form-control" id="username" value="demo">
+        <input class="form-control" id="username" placeholder="at least 3 characters">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input class="form-control" id="email" type="email" placeholder="you@example.com">
     </div>
     <div class="mb-3">
         <label class="form-label">Password</label>
-        <input class="form-control" id="password" type="password" value="demo123">
+        <input class="form-control" id="password" type="password" placeholder="at least 6 characters">
     </div>
-    <button class="btn btn-danger" onclick="doLogin()">Login</button>
-    <a class="btn btn-outline-secondary" th:href="@{/register}">Need an account?</a>
+    <button class="btn btn-danger" onclick="doRegister()">Register</button>
+    <a class="btn btn-outline-secondary" th:href="@{/login}">Already have one?</a>
 
     <div class="mt-4" id="result" style="display:none;">
         <label class="form-label fw-bold">Server response</label>
@@ -29,12 +33,13 @@
 </div>
 
 <script>
-    async function doLogin() {
+    async function doRegister() {
         const body = {
             username: document.getElementById('username').value,
+            email: document.getElementById('email').value,
             password: document.getElementById('password').value
         };
-        const res = await fetch('/login', {
+        const res = await fetch('/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body)

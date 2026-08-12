@@ -1,0 +1,13 @@
+# Maven build output
+target/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Local env overrides (keep secrets out of git)
+.env

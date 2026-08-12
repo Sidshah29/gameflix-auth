@@ -1,15 +1,15 @@
 package com.gameflix.auth;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 /**
- * Minimal smoke test. Verifies the Spring context boots.
- * Manual endpoint testing is done in Postman per the assignment brief.
+ * Smoke test: verifies the whole Spring context (security, JPA, JWT, data
+ * loader) boots against the in-memory H2 test database.
  */
 @SpringBootTest
-@Disabled
+@ActiveProfiles("test")
 class AuthControllerTest {
 
     @Test

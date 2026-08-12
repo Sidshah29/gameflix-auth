@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head">
+    <title>Catalog</title>
+</head>
+<body>
+<div th:replace="fragments :: navbar"></div>
+
+<div class="container">
+    <h1 class="mb-3">Game Catalog</h1>
+
+    <form class="row g-2 mb-4" method="get" th:action="@{/catalog}">
+        <div class="col-auto">
+            <input class="form-control" type="text" name="q" th:value="${query}"
+                   placeholder="Search by title...">
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-danger" type="submit">Search</button>
+        </div>
+        <div class="col-auto" th:if="${query != null and !query.isEmpty()}">
+            <a class="btn btn-outline-secondary" th:href="@{/catalog}">Clear</a>
+        </div>
+    </form>
+
+    <p th:if="${games.isEmpty()}" class="text-muted">
+        No games matched your search.
+    </p>
+
+    <div class="row">
+        <div class="col-md-4 mb-4" th:each="game : ${games}">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${game.title}">Game Title</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        <span th:text="${game.platform}">PC</span> &middot;
+                        <span th:text="${game.genre}">Genre</span>
+                    </h6>
+                    <p class="card-text" th:text="${game.description}">Description.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a class="btn btn-outline-dark" th:href="@{/}">Back to Dashboard</a>
+</div>
+</body>
+</html>

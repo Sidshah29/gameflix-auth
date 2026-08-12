@@ -1,10 +1,12 @@
 package com.gameflix.auth.dto;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 /**
  * Request body for both /register and /login.
+ * Email is only used on register; login ignores it, so it is optional here.
  */
 public class AuthRequest {
 
@@ -15,6 +17,9 @@ public class AuthRequest {
     @NotBlank(message = "password is required")
     @Size(min = 6, max = 100, message = "password must be at least 6 characters")
     private String password;
+
+    @Email(message = "email must be a valid address")
+    private String email;
 
     public AuthRequest() {
     }
@@ -33,5 +38,13 @@ public class AuthRequest {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

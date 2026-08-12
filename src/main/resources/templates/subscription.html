@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head">
+    <title>My Subscription</title>
+</head>
+<body>
+<div th:replace="fragments :: navbar"></div>
+
+<div class="container">
+    <h1 class="mb-3">My Subscription</h1>
+    <p class="text-muted">Managing the plan for user
+        <strong th:text="${demoUser}">demo</strong>.</p>
+
+    <div class="card mb-4" th:if="${subscription != null}">
+        <div class="card-body">
+            <h5 class="card-title">Active plan:
+                <span class="badge bg-danger" th:text="${subscription.plan}">STANDARD</span>
+            </h5>
+            <p class="card-text mb-1">
+                Billed monthly:
+                <strong th:text="'$' + ${#numbers.formatDecimal(subscription.monthlyPrice, 1, 2)}">$9.99</strong>
+            </p>
+            <p class="card-text text-muted">
+                Status: <span th:text="${subscription.status}">ACTIVE</span>
+            </p>
+            <form method="post" th:action="@{/subscription/cancel}">
+                <button class="btn btn-outline-danger" type="submit">Cancel subscription</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="alert alert-warning" th:if="${subscription == null}">
+        You have no active subscription. Choose a plan below to get started.
+    </div>
+
+    <h4 class="mb-3" th:text="${subscription != null} ? 'Switch plan' : 'Choose a plan'">Choose a plan</h4>
+    <div class="row">
+        <div class="col-md-4 mb-3" th:each="plan : ${plans}">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title" th:text="${plan}">STANDARD</h5>
+                    <p class="display-6"
+                       th:text="'$' + ${#numbers.formatDecimal(plan.monthlyPrice, 1, 2)}">$9.99</p>
+                    <p class="text-muted">per month</p>
+                    <form method="post" th:action="@{/subscription/subscribe}">
+                        <input type="hidden" name="plan" th:value="${plan}">
+                        <button class="btn btn-danger w-100" type="submit"
+                                th:text="${subscription != null and subscription.plan.name() == plan.name()} ? 'Current' : 'Select'">
+                            Select
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a class="btn btn-outline-dark mt-2" th:href="@{/}">Back to Dashboard</a>
+</div>
+</body>
+</html>
